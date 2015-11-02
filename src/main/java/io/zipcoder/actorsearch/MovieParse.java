@@ -38,7 +38,7 @@ public class MovieParse {
         mp.makeRequest("julia roberts");
         System.out.println();
         Actor actor = new Actor();
-        System.out.println(mp.getResponse().getBody().getObject().keySet());
+        System.out.println(mp.getResponse().getBody().getObject().getJSONArray("title"));
 
 
 
