@@ -7,6 +7,12 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.validation.constraints.Null;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Objects;
+
 /**
  * Created by BatComputer on 11/2/15.
  */
@@ -20,7 +26,6 @@ public class MovieParse {
             response = Unirest.get("http://api.myapifilms.com/imdb/idIMDB?token=dafd0817-1c8d-48a2-b0c6-9c9b4480e4ff")
                     .queryString("name", actName)
                     .queryString("spouses", 1)
-
                     .queryString("filmography", 1)
                     .queryString("limit", 1)
                     .asJson();
@@ -30,6 +35,17 @@ public class MovieParse {
         return response;
     }
 
+
+    public HttpResponse<JsonNode> makeMovieRequest(String imdbID) {
+        try {
+            response = Unirest.get("http://api.myapifilms.com/imdb/idIMDB?token=dafd0817-1c8d-48a2-b0c6-9c9b4480e4ff")
+                    .queryString("idIMDB", imdbID)
+                    .asJson();
+        } catch (Exception e) {
+
+        }
+        return response;
+    }
 
     public HttpResponse<JsonNode> getResponse() {
         return response;
@@ -55,14 +71,32 @@ public class MovieParse {
         JSONArray names = jsonObject.getJSONObject("data").getJSONArray("names");
         JSONArray movieList = names.getJSONObject(0).getJSONArray("filmographies").getJSONObject(0).getJSONArray("filmography");
 
+        ArrayList<Movie> movieArrayList = null;
+
         for (int i = 0; i < movieList.length(); i++) { //iterate thru all of the actor's movies
 
-            Movie movie = new Movie(movieList.getJSONObject(i).getString("title"),
-                                    movieList.getJSONObject(i).getString("imdbid"),
-                                    movieList.getJSONObject(i).getString("year"));
-            System.out.println(movie.getTitle() + " : " + movie.getReleaseYear());
+            String title = movieList.getJSONObject(i).getString("title");
+            String imdbid = movieList.getJSONObject(i).getString("imdbid");
 
+            System.out.format("%20s%20s\n", title, imdbid);
+/*
+            MovieParse movieParser = new MovieParse();
+            HttpResponse<JsonNode> movie = movieParser.makeMovieRequest(imdbid);
+            try {
+                JSONArray movieinfo = movieParser.getResponse().getBody().getObject().getJSONObject("data").getJSONArray("movies");
+
+                String image = movieinfo.getJSONObject(0).getString("urlPoster");
+                String metascore = movieinfo.getJSONObject(0).getString("metascore");
+                String plot = movieinfo.getJSONObject(0).getString("plot");
+                String rated = movieinfo.getJSONObject(0).getString("rated");
+
+                Movie movieObj = new Movie(title, imdbid, image, metascore, plot, rated);
+                movieArrayList.add(movieObj);
+
+            } catch(Exception e){
+
+            }
+            //System.out.println(movieArrayList.size());*/
         }
-
     }
 }

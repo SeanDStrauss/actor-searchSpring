@@ -6,15 +6,22 @@ package io.zipcoder.actorsearch;
 public class Movie {
     private String title;
     private String imdbID;
-    private String releaseYear;
+    private String image;
+    private String metascore;
+    private String plot;
+    private String rated;
 
-    public Movie(String title, String imdbID, String releaseYear) {
-        this.title = title;
-        this.imdbID = imdbID;
-        this.releaseYear = releaseYear;
-    }
 
     public Movie(){
+    }
+
+    public Movie(String title, String imdbID, String image, String metascore, String plot, String rated) {
+        this.title = title;
+        this.imdbID = imdbID;
+        this.image = image;
+        this.metascore = metascore;
+        this.plot = plot;
+        this.rated = rated;
     }
 
     public String getTitle() {
@@ -33,11 +40,35 @@ public class Movie {
         this.imdbID = imdbID;
     }
 
-    public String getReleaseYear() {
-        return releaseYear;
+    public String getImage() {
+        return image;
     }
 
-    public void setReleaseYear(String releaseYear) {
-        this.releaseYear = releaseYear;
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getMetascore() {
+        return metascore;
+    }
+
+    public void setMetascore(String metascore) {
+        this.metascore = metascore;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
+
+    public String getRated() {
+        return rated;
+    }
+
+    public void setRated(String rated) {
+        this.rated = rated;
     }
 }

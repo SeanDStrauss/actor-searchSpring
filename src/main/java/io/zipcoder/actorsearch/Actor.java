@@ -21,6 +21,7 @@ public class Actor {
 
     @NotNull
     private int age;
+
     @NotNull
     private String actorPhotos;
     private Movie[] movies;
@@ -34,13 +35,6 @@ public class Actor {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public String getActorPhotos() {
         return actorPhotos;
