@@ -5,7 +5,6 @@ package io.zipcoder.actorsearch;
  */
 public class Actor {
     private String name;
-    private int age;
     private String actorPhotos;
     private Movie[] movies;
 
@@ -17,13 +16,6 @@ public class Actor {
         this.name = name;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
 
     public String getActorPhotos() {
         return actorPhotos;
