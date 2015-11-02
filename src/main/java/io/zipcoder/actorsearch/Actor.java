@@ -1,12 +1,33 @@
 package io.zipcoder.actorsearch;
 
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by BatComputer on 11/2/15.
  */
+@Entity
+@Table(name = "actor")
 public class Actor {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @NotNull
     private String name;
+
+    @NotNull
+    private int age;
+
+    @NotNull
     private String actorPhotos;
     private Movie[] movies;
+
 
     public String getName() {
         return name;
@@ -25,6 +46,7 @@ public class Actor {
         this.actorPhotos = actorPhotos;
     }
 
+
     public Movie[] getMovies() {
         return movies;
     }
@@ -32,4 +54,9 @@ public class Actor {
     public void setMovies(Movie[] movies) {
         this.movies = movies;
     }
+
+
+
+
+
 }

@@ -57,6 +57,13 @@ public class MovieParse {
 
 
     public static void main(String[] args) throws UnirestException {
+        MovieParse mp = new MovieParse();
+        mp.makeActorRequest("julia roberts");
+        System.out.println();
+
+        System.out.println(mp.getResponse().getBody().getObject().getJSONArray("title"));
+
+
         MovieParse actorParser = new MovieParse();
         HttpResponse<JsonNode> actor = actorParser.makeActorRequest("brad pitt");
 
