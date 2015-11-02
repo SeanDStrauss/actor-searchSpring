@@ -1,7 +1,6 @@
 package io.zipcoder.actorsearch.Controllers;
 
 import io.zipcoder.actorsearch.Actor;
-import io.zipcoder.actorsearch.Movie;
 import io.zipcoder.actorsearch.MovieParse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +23,7 @@ public class ActorController {
     }
 
     @RequestMapping(name = "/actor", method = RequestMethod.POST)
-    public Movie[] searchMoviesByActor(@RequestParam String name) {
+    public String searchMoviesByActor(@RequestParam String name) {
         MovieParse mp = new MovieParse();
 
         Actor actor = new Actor();
@@ -37,7 +36,8 @@ public class ActorController {
         actor.setName(name);
 
 
-        return actor.getMovies();
+
+        return  mp.getResponse().getBody().getObject().toString();
 
     }
 

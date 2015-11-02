@@ -7,11 +7,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.validation.constraints.Null;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Objects;
 
 /**
  * Created by BatComputer on 11/2/15.
@@ -29,6 +25,8 @@ public class MovieParse {
                     .queryString("filmography", 1)
                     .queryString("limit", 1)
                     .asJson();
+
+
         } catch (Exception e) {
 
         }
