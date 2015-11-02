@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 
 /**
  * Created by BatComputer on 11/2/15.
@@ -22,12 +23,17 @@ public class Actor {
     private String name;
 
     @NotNull
-    private int age;
-
-    @NotNull
     private String actorPhotos;
-    private Movie[] movies;
+    private ArrayList<Movie> movies;
 
+    public Actor(){
+
+    }
+    public Actor(String name, String actorPhotos, ArrayList<Movie> movies) {
+        this.name = name;
+        this.actorPhotos = actorPhotos;
+        this.movies = movies;
+    }
 
     public String getName() {
         return name;
@@ -46,17 +52,11 @@ public class Actor {
         this.actorPhotos = actorPhotos;
     }
 
-
-    public Movie[] getMovies() {
+    public ArrayList<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(Movie[] movies) {
+    public void setMovies(ArrayList<Movie> movies) {
         this.movies = movies;
     }
-
-
-
-
-
 }

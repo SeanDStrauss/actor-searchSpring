@@ -1,7 +1,7 @@
 package io.zipcoder.actorsearch.Controllers;
 
 import io.zipcoder.actorsearch.Actor;
-import io.zipcoder.actorsearch.ActorDOA;
+//import io.zipcoder.actorsearch.ActorDOA;
 import io.zipcoder.actorsearch.MovieParse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ActorController {
 
-    @Autowired
-    private ActorDOA actorDOA;
+    //@Autowired
+    //private ActorDOA actorDOA;
 
     @RequestMapping(name = "/actor", method = RequestMethod.GET)
     public Actor getMoviesByActor(String name) {

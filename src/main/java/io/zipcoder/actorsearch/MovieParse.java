@@ -55,36 +55,27 @@ public class MovieParse {
         this.response = response;
     }
 
+    public Actor searchByActor(MovieParse mp, String searchName){
+        MovieParse actorParser = mp;
 
-    public static void main(String[] args) throws UnirestException {
-        MovieParse mp = new MovieParse();
-        mp.makeActorRequest("julia roberts");
-        System.out.println();
-
-        System.out.println(mp.getResponse().getBody().getObject().getJSONArray("title"));
-
-
-        MovieParse actorParser = new MovieParse();
-        HttpResponse<JsonNode> actor = actorParser.makeActorRequest("brad pitt");
+        HttpResponse<JsonNode> actorResponse = actorParser.makeActorRequest(searchName);
 
         JSONObject jsonObject = actorParser.getResponse().getBody().getObject();
         JSONArray names = jsonObject.getJSONObject("data").getJSONArray("names");
         JSONArray movieList = names.getJSONObject(0).getJSONArray("filmographies").getJSONObject(0).getJSONArray("filmography");
+        String photo = names.getJSONObject(0).getString("urlPhoto");
+        String name = names.getJSONObject(0).getString("name");
 
-        ArrayList<Movie> movieArrayList = null;
+        ArrayList<Movie> movieArrayList = new ArrayList<>();
 
-        for (int i = 0; i < movieList.length(); i++) { //iterate thru all of the actor's movies
+        for (int i = 0; i < 10; i++) { //iterate thru all of the actor's movies and add to list
 
             String title = movieList.getJSONObject(i).getString("title");
             String imdbid = movieList.getJSONObject(i).getString("imdbid");
-
-            System.out.format("%20s%20s\n", title, imdbid);
-/*
             MovieParse movieParser = new MovieParse();
             HttpResponse<JsonNode> movie = movieParser.makeMovieRequest(imdbid);
             try {
                 JSONArray movieinfo = movieParser.getResponse().getBody().getObject().getJSONObject("data").getJSONArray("movies");
-
                 String image = movieinfo.getJSONObject(0).getString("urlPoster");
                 String metascore = movieinfo.getJSONObject(0).getString("metascore");
                 String plot = movieinfo.getJSONObject(0).getString("plot");
@@ -96,7 +87,27 @@ public class MovieParse {
             } catch(Exception e){
 
             }
-            //System.out.println(movieArrayList.size());*/
         }
+
+        Actor actor = new Actor(name, photo, movieArrayList);
+
+        return actor;
+    }
+
+
+
+    public static void main(String[] args) throws UnirestException {
+
+        MovieParse mp = new MovieParse();
+        Actor searched = mp.searchByActor(mp, "jennifer lawrence");
+        System.out.println(searched.getName() + " : " + searched.getActorPhotos());
+        for(int i = 0; i<searched.getMovies().size(); i++ ) {
+            System.out.println(searched.getMovies().get(i).getTitle());
+        }
+
+
+
+
+
     }
 }
