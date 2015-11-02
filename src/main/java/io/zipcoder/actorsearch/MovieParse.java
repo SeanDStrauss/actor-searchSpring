@@ -7,10 +7,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
-import java.util.Iterator;
-import java.util.Objects;
-
 /**
  * Created by BatComputer on 11/2/15.
  */
@@ -34,6 +30,7 @@ public class MovieParse {
         return response;
     }
 
+
     public HttpResponse<JsonNode> getResponse() {
         return response;
     }
@@ -44,6 +41,13 @@ public class MovieParse {
 
 
     public static void main(String[] args) throws UnirestException {
+        MovieParse mp = new MovieParse();
+        mp.makeActorRequest("julia roberts");
+        System.out.println();
+
+        System.out.println(mp.getResponse().getBody().getObject().getJSONArray("title"));
+
+
         MovieParse actorParser = new MovieParse();
         HttpResponse<JsonNode> actor = actorParser.makeActorRequest("brad pitt");
 
