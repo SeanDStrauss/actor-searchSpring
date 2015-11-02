@@ -7,7 +7,7 @@ public class Actor {
     private String name;
     private int age;
     private String actorPhotos;
-    private String[] titleArray;
+    private Movie[] movies;
 
     public String getName() {
         return name;
@@ -33,11 +33,11 @@ public class Actor {
         this.actorPhotos = actorPhotos;
     }
 
-    public String[] getTitleArray() {
-        return titleArray;
+    public Movie[] getMovies() {
+        return movies;
     }
 
-    public void setTitleArray(String[] titleArray) {
-        this.titleArray = titleArray;
+    public void setMovies(Movie[] movies) {
+        this.movies = movies;
     }
 }
