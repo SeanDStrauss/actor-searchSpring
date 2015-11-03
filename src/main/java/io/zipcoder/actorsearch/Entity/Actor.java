@@ -1,16 +1,16 @@
-package io.zipcoder.actorsearch;
+package io.zipcoder.actorsearch.Entity;
 
-import org.springframework.data.annotation.Id;
+import io.zipcoder.actorsearch.Movie;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 
 /**
  * Created by BatComputer on 11/2/15.
  */
-
-
+@Entity
+@Table(name = "actor")
 public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,13 +20,16 @@ public class Actor {
     private String name;
 
     @NotNull
-
-    private int age;
+    private String age;
 
     @NotNull
-
+    @Transient
     private String actorPhotos;
+    @Transient
     private ArrayList<Movie> movies;
+
+
+
 
     public Actor(){
 
@@ -37,6 +40,15 @@ public class Actor {
         this.movies = movies;
     }
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -45,6 +57,13 @@ public class Actor {
         this.name = name;
     }
 
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 
     public String getActorPhotos() {
         return actorPhotos;
@@ -54,17 +73,11 @@ public class Actor {
         this.actorPhotos = actorPhotos;
     }
 
-
-    public Movie[] getMovies() {
+    public ArrayList<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(Movie[] movies) {
+    public void setMovies(ArrayList<Movie> movies) {
         this.movies = movies;
     }
-
-
-
-
-
 }

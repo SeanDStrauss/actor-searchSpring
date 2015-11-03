@@ -3,7 +3,7 @@ package io.zipcoder.actorsearch;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
+import io.zipcoder.actorsearch.Entity.Actor;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -29,8 +29,9 @@ public class MovieParse {
 
 
         } catch (Exception e) {
-
+           // e.printStackTrace();
         }
+        searchByActor(actName);
         return response;
     }
 
@@ -41,7 +42,7 @@ public class MovieParse {
                     .queryString("idIMDB", imdbID)
                     .asJson();
         } catch (Exception e) {
-
+            //e.printStackTrace();
         }
         return response;
     }
@@ -54,12 +55,12 @@ public class MovieParse {
         this.response = response;
     }
 
-    public Actor searchByActor(MovieParse mp, String searchName){
-        MovieParse actorParser = mp;
+    public ArrayList<Movie> searchByActor(String searchName){
 
-        HttpResponse<JsonNode> actorResponse = actorParser.makeActorRequest(searchName);
 
-        JSONObject jsonObject = actorParser.getResponse().getBody().getObject();
+
+
+        JSONObject jsonObject = response.getBody().getObject();
         JSONArray names = jsonObject.getJSONObject("data").getJSONArray("names");
         JSONArray movieList = names.getJSONObject(0).getJSONArray("filmographies").getJSONObject(0).getJSONArray("filmography");
         String photo = names.getJSONObject(0).getString("urlPhoto");
@@ -74,34 +75,17 @@ public class MovieParse {
             String title = movieList.getJSONObject(i).getString("title");
             String imdbid = movieList.getJSONObject(i).getString("imdbid");
 
-            System.out.format("%20s%20s\n", title, imdbid);
-/*
-            MovieParse movieParser = new MovieParse();
-            HttpResponse<JsonNode> movie = movieParser.makeMovieRequest(imdbid);
-            try {
-                JSONArray movieinfo = movieParser.getResponse().getBody().getObject().getJSONObject("data").getJSONArray("movies");
+           // System.out.format("%20s%20s\n", title, imdbid);
 
-                String image = movieinfo.getJSONObject(0).getString("urlPoster");
-                String metascore = movieinfo.getJSONObject(0).getString("metascore");
-                String plot = movieinfo.getJSONObject(0).getString("plot");
-                String rated = movieinfo.getJSONObject(0).getString("rated");
-
-                Movie movieObj = new Movie(title, imdbid, image, metascore, plot, rated);
-                movieArrayList.add(movieObj);
-
-            } catch(Exception e){
-
-            }
-            //System.out.println(movieArrayList.size());*/
         }
 
-        for (int i = 0; i < 10; i++) { //iterate thru all of the actor's movies and add to list
+        for (int i = 0; i < 20; i++) { //iterate thru all of the actor's movies and add to list
 
             String title = movieList.getJSONObject(i).getString("title");
             String imdbid = movieList.getJSONObject(i).getString("imdbid");
             MovieParse movieParser = new MovieParse();
             HttpResponse<JsonNode> movie = movieParser.makeMovieRequest(imdbid);
-            try {
+            try{
                 JSONArray movieinfo = movieParser.getResponse().getBody().getObject().getJSONObject("data").getJSONArray("movies");
                 String image = movieinfo.getJSONObject(0).getString("urlPoster");
                 String metascore = movieinfo.getJSONObject(0).getString("metascore");
@@ -112,30 +96,16 @@ public class MovieParse {
                 movieArrayList.add(movieObj);
 
             } catch(Exception e){
-
+                //e.printStackTrace();
             }
         }
 
         Actor actor = new Actor(name, photo, movieArrayList);
 
-        return actor;
+        return movieArrayList;
     }
 
 
 
-    public static void main(String[] args) throws UnirestException {
 
-        MovieParse mp = new MovieParse();
-        Actor searched = mp.searchByActor(mp, "jennifer lawrence");
-        System.out.println(searched.getName() + " : " + searched.getActorPhotos());
-        for(int i = 0; i<searched.getMovies().size(); i++ ) {
-            System.out.println(searched.getMovies().get(i).getTitle());
-        }
-
-
-
-
-
-
-    }
 }
