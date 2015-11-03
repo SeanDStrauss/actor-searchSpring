@@ -38,12 +38,13 @@ public class ActorController {
         try {
             mp.makeActorRequest(name);
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        actor.setName(name);
+        //actor.setName(name);
 
-
+       // System.out.println(mp.searchByActor(name));
 
         return  mp.searchByActor(name);
 

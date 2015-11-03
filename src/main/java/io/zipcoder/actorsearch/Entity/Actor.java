@@ -23,7 +23,7 @@ public class Actor {
     private String age;
 
     @NotNull
-    @Transient
+
     private String actorPhotos;
     @Transient
     private ArrayList<Movie> movies;
