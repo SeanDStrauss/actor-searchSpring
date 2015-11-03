@@ -79,7 +79,7 @@ public class MovieParse {
 
         }
 
-        for (int i = 0; i < 20; i++) { //iterate thru all of the actor's movies and add to list
+        for (int i = 0; i < 10; i++) { //iterate thru all of the actor's movies and add to list
 
             String title = movieList.getJSONObject(i).getString("title");
             String imdbid = movieList.getJSONObject(i).getString("imdbid");
