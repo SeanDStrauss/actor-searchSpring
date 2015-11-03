@@ -20,12 +20,22 @@ public class Actor {
     private String name;
 
     @NotNull
+
     private int age;
 
     @NotNull
-    private String actorPhotos;
-    private Movie[] movies;
 
+    private String actorPhotos;
+    private ArrayList<Movie> movies;
+
+    public Actor(){
+
+    }
+    public Actor(String name, String actorPhotos, ArrayList<Movie> movies) {
+        this.name = name;
+        this.actorPhotos = actorPhotos;
+        this.movies = movies;
+    }
 
     public String getName() {
         return name;
