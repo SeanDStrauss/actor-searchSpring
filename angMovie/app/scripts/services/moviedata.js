@@ -9,21 +9,25 @@
  */
 angular.module('angMovieApp')
   .factory('movieData', function($http) {
-    var data = {};
+    var movieData = {};
+    function searchByActor(name) {
     $http({
       method: 'POST',
-      url: 'http://localhost:8080/actor?name=james franco'
+      url: 'http://localhost:8080/actor?name=' + name
     }).then(function successCallback(response) {
-      data = response;
-      console.log(data);
+      movieData = response;
+      //console.log(movieData);
+      //console.log(data);
     }, function errorCallback(response) {
-      console.log(response);
+      
     });
+  }
 
     // Public API here
     return {
       getMovieByActor: function() {
-        return data;
-      }
+        return movieData;
+      },
+      searchByActor: searchByActor
     };
   });

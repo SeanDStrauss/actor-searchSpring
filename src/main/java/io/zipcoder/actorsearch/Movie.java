@@ -28,19 +28,37 @@ public class Movie {
     private String plot;
     @NotNull
     private String rated;
+    @NotNull
+    private String year;
 
-
+    /**
+     * Default constructor
+     */
     public Movie(){
     }
 
-    public Movie(String title, String imdb_id, String image, String metascore, String plot, String rated) {
+
+    /**
+     * Movie Constructor with data
+     * @param title
+     * @param imdb_id
+     * @param image
+     * @param metascore
+     * @param plot
+     * @param rated
+     * @param year
+     */
+    public Movie(String title, String imdb_id, String image, String metascore, String plot, String rated, String year) {
         this.title = title;
         this.imdb_id = imdb_id;
         this.image = image;
         this.metascore = metascore;
         this.plot = plot;
         this.rated = rated;
+        this.year = year;
     }
+
+    /////////Getters and Setters/////////////////////////
 
     public String getTitle() {
         return title;
@@ -88,5 +106,13 @@ public class Movie {
 
     public void setRated(String rated) {
         this.rated = rated;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 }

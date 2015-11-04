@@ -25,10 +25,22 @@ public class Actor {
     private String bio;
     private String dob;
 
-
+    /**
+     * Default constructor
+     */
     public Actor(){
 
     }
+
+    /**
+     * Actor constructor with data
+     * @param name
+     * @param actor_photos
+     * @param movies
+     * @param birthplace
+     * @param bio
+     * @param dob
+     */
     public Actor(String name, String actor_photos, ArrayList<Movie> movies, String birthplace, String bio, String dob) {
         this.name = name;
         this.actor_photos = actor_photos;

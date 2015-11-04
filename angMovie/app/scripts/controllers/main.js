@@ -9,11 +9,15 @@
  */
 angular.module('angMovieApp')
   .controller('MainCtrl', function ($scope, movieData) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-    console.log(movieData);
+ 
+
+  	$scope.searchActor =function (){
+  		movieData.searchByActor($scope.name);
+  		console.log(movieData);
+  	}
+
+
+
+    
 
   });

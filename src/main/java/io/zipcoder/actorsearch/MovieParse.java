@@ -22,7 +22,20 @@ public class MovieParse {
     @Autowired
     private MovieDAO movieDAO;
 
+    ////Getters and Setters////////////
+    public HttpResponse<JsonNode> getResponse() {
+        return response;
+    }
 
+    public void setResponse(HttpResponse<JsonNode> response) {
+        this.response = response;
+    }
+
+    /**
+     * Make request to outside api by actor name, returns JsonObject
+     * @param actName
+     * @return
+     */
     public HttpResponse<JsonNode> makeActorRequest(String actName) {
         try {
             response = Unirest.get("http://api.myapifilms.com/imdb/idIMDB?token=dafd0817-1c8d-48a2-b0c6-9c9b4480e4ff")
@@ -35,11 +48,15 @@ public class MovieParse {
         } catch (Exception e) {
            // e.printStackTrace();
         }
-        searchByActor(actName);
+        parseResponseDataIntoObjects();
         return response;
     }
 
-
+    /**
+     * Make request to api for movie info using imdbId found with the actor response
+     * @param imdbID
+     * @return
+     */
     public HttpResponse<JsonNode> makeMovieRequest(String imdbID) {
         try {
             response = Unirest.get("http://api.myapifilms.com/imdb/idIMDB?token=dafd0817-1c8d-48a2-b0c6-9c9b4480e4ff")
@@ -51,15 +68,12 @@ public class MovieParse {
         return response;
     }
 
-    public HttpResponse<JsonNode> getResponse() {
-        return response;
-    }
 
-    public void setResponse(HttpResponse<JsonNode> response) {
-        this.response = response;
-    }
-
-    public Actor searchByActor(String searchName) {
+    /**
+     * Parse response data from API's
+     * @return
+     */
+    public Actor parseResponseDataIntoObjects() {
 
         JSONArray names = response.getBody().getObject().getJSONObject("data").getJSONArray("names");
         JSONArray movieData = response.getBody().getObject().getJSONObject("data").getJSONArray("names").getJSONObject(0).getJSONArray("filmographies").getJSONObject(0).getJSONArray("filmography");
@@ -83,8 +97,9 @@ public class MovieParse {
                 String metascore = movieinfo.getJSONObject(0).getString("metascore");
                 String plot = movieinfo.getJSONObject(0).getString("plot");
                 String rated = movieinfo.getJSONObject(0).getString("rated");
+                String year = movieinfo.getJSONObject(0).getString("year");
 
-                Movie movieObj = new Movie(title, imdbid, image, metascore, plot, rated);
+                Movie movieObj = new Movie(title, imdbid, image, metascore, plot, rated, year);
                 movieArrayList.add(movieObj);
 
                 movieDAO.save(movieObj);
@@ -104,14 +119,5 @@ public class MovieParse {
         return actor;
     }
 
-    public static void main(String[] args){
-        MovieParse movieParse = new MovieParse();
-        String actor = "Ezra Miller";
-        movieParse.makeActorRequest(actor);
-        Actor actorObject = movieParse.searchByActor(actor);
-        System.out.println("\n" + actorObject.getName());
-        System.out.println(actorObject.getActor_photos());
-        System.out.println(actorObject.getMovies().get(1).getTitle());
 
-    }
 }
