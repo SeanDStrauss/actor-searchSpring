@@ -58,8 +58,6 @@ public class MovieParse {
     public ArrayList<Movie> searchByActor(String searchName){
 
 
-
-
         JSONObject jsonObject = response.getBody().getObject();
         JSONArray names = jsonObject.getJSONObject("data").getJSONArray("names");
         JSONArray movieList = names.getJSONObject(0).getJSONArray("filmographies").getJSONObject(0).getJSONArray("filmography");
