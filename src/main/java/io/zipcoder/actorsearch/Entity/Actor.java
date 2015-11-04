@@ -19,7 +19,8 @@ public class Actor {
     private ArrayList<Movie> movies;
 
     private String name;
-    private String actorPhotos;
+
+    private String actor_photos;
     private String birthplace;
     private String bio;
     private String dob;
@@ -28,13 +29,21 @@ public class Actor {
     public Actor(){
 
     }
-    public Actor(String name, String actorPhotos, ArrayList<Movie> movies, String birthplace, String bio, String dob) {
+    public Actor(String name, String actor_photos, ArrayList<Movie> movies, String birthplace, String bio, String dob) {
         this.name = name;
-        this.actorPhotos = actorPhotos;
+        this.actor_photos = actor_photos;
         this.movies = movies;
         this.birthplace = birthplace;
         this.bio = bio;
         this.dob = dob;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public ArrayList<Movie> getMovies() {
@@ -53,12 +62,12 @@ public class Actor {
         this.name = name;
     }
 
-    public String getActorPhotos() {
-        return actorPhotos;
+    public String getActor_photos() {
+        return actor_photos;
     }
 
-    public void setActorPhotos(String actorPhotos) {
-        this.actorPhotos = actorPhotos;
+    public void setActor_photos(String actor_photos) {
+        this.actor_photos = actor_photos;
     }
 
     public String getBirthplace() {

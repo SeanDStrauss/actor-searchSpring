@@ -6,9 +6,7 @@ import com.mashape.unirest.http.Unirest;
 import io.zipcoder.actorsearch.Entity.Actor;
 import io.zipcoder.actorsearch.Entity.ActorDAO;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import sun.awt.ModalExclude;
 
 import java.util.ArrayList;
 
@@ -21,6 +19,8 @@ public class MovieParse {
     private HttpResponse<JsonNode> response;
     @Autowired
     private ActorDAO actorDAO;
+    @Autowired
+    private MovieDAO movieDAO;
 
 
     public HttpResponse<JsonNode> makeActorRequest(String actName) {
@@ -87,6 +87,8 @@ public class MovieParse {
                 Movie movieObj = new Movie(title, imdbid, image, metascore, plot, rated);
                 movieArrayList.add(movieObj);
 
+                movieDAO.save(movieObj);
+
             } catch (Exception e) {
                 //e.printStackTrace();
             }
@@ -108,7 +110,7 @@ public class MovieParse {
         movieParse.makeActorRequest(actor);
         Actor actorObject = movieParse.searchByActor(actor);
         System.out.println("\n" + actorObject.getName());
-        System.out.println(actorObject.getActorPhotos());
+        System.out.println(actorObject.getActor_photos());
         System.out.println(actorObject.getMovies().get(1).getTitle());
 
     }
