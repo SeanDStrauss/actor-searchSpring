@@ -3,7 +3,6 @@ package io.zipcoder.actorsearch.Entity;
 import io.zipcoder.actorsearch.Movie;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
 /**
@@ -16,13 +15,14 @@ public class Actor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotNull
+
     private String name;
 
-    @NotNull
+
     private String age;
 
-    @NotNull
+
+
 
     private String actorPhotos;
     @Transient

@@ -2,15 +2,12 @@ package io.zipcoder.actorsearch.Controllers;
 
 import io.zipcoder.actorsearch.Entity.Actor;
 import io.zipcoder.actorsearch.Entity.ActorDAO;
-import io.zipcoder.actorsearch.Movie;
 import io.zipcoder.actorsearch.MovieParse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
 
 /**
  * Created by BatComputer on 11/2/15.
@@ -31,13 +28,14 @@ public class ActorController {
     }
 
     @RequestMapping(name = "/actor", method = RequestMethod.POST)
-    public ArrayList<Movie> searchMoviesByActor(@RequestParam String name) {
+    public Actor searchMoviesByActor(@RequestParam String name) {
         MovieParse mp = new MovieParse();
 
-        Actor actor = new Actor();
+        Actor actor = null;
         try {
             mp.makeActorRequest(name);
-
+            actor =  mp.searchByActor(name);
+            actorDAO.save(actor);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,7 +44,7 @@ public class ActorController {
 
        // System.out.println(mp.searchByActor(name));
 
-        return  mp.searchByActor(name);
+        return  actor;
 
     }
 

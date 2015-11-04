@@ -4,8 +4,10 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import io.zipcoder.actorsearch.Entity.Actor;
+import io.zipcoder.actorsearch.Entity.ActorDAO;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 public class MovieParse {
 
     private HttpResponse<JsonNode> response;
+    @Autowired
+    private ActorDAO actorDAO;
 
 
     public HttpResponse<JsonNode> makeActorRequest(String actName) {
@@ -55,7 +59,11 @@ public class MovieParse {
         this.response = response;
     }
 
+<<<<<<< HEAD
     public ArrayList<Movie> searchByActor(String searchName){
+=======
+    public Actor searchByActor(String searchName) {
+>>>>>>> 0678e8be12b25e28f79ad0db10de10bce0c6fb85
 
 
         JSONObject jsonObject = response.getBody().getObject();
@@ -64,8 +72,9 @@ public class MovieParse {
         String photo = names.getJSONObject(0).getString("urlPhoto");
         String name = names.getJSONObject(0).getString("name");
 
-        ArrayList<Movie> movieArrayList = new ArrayList<>();
 
+
+        ArrayList<Movie> movieArrayList = new ArrayList<>();
 
 
         for (int i = 0; i < movieList.length(); i++) { //iterate thru all of the actor's movies
@@ -73,7 +82,7 @@ public class MovieParse {
             String title = movieList.getJSONObject(i).getString("title");
             String imdbid = movieList.getJSONObject(i).getString("imdbid");
 
-           // System.out.format("%20s%20s\n", title, imdbid);
+            // System.out.format("%20s%20s\n", title, imdbid);
 
         }
 
@@ -83,7 +92,7 @@ public class MovieParse {
             String imdbid = movieList.getJSONObject(i).getString("imdbid");
             MovieParse movieParser = new MovieParse();
             HttpResponse<JsonNode> movie = movieParser.makeMovieRequest(imdbid);
-            try{
+            try {
                 JSONArray movieinfo = movieParser.getResponse().getBody().getObject().getJSONObject("data").getJSONArray("movies");
                 String image = movieinfo.getJSONObject(0).getString("urlPoster");
                 String metascore = movieinfo.getJSONObject(0).getString("metascore");
@@ -93,14 +102,23 @@ public class MovieParse {
                 Movie movieObj = new Movie(title, imdbid, image, metascore, plot, rated);
                 movieArrayList.add(movieObj);
 
-            } catch(Exception e){
+
+            } catch (Exception e) {
                 //e.printStackTrace();
             }
         }
+        Actor actor = null;
+        try {
+            actor = new Actor(name, photo, movieArrayList);
 
-        Actor actor = new Actor(name, photo, movieArrayList);
 
-        return movieArrayList;
+            //actorDAO.save(actor);
+        } catch (Exception e) {
+
+        }
+
+
+        return actor;
     }
 
 
