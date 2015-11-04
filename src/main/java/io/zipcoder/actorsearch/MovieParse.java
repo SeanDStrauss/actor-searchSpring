@@ -8,6 +8,7 @@ import io.zipcoder.actorsearch.Entity.ActorDAO;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import sun.awt.ModalExclude;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,6 @@ public class MovieParse {
                     .queryString("filmography", 1)
                     .queryString("limit", 1)
                     .asJson();
-
 
         } catch (Exception e) {
            // e.printStackTrace();
@@ -59,37 +59,22 @@ public class MovieParse {
         this.response = response;
     }
 
-<<<<<<< HEAD
-    public ArrayList<Movie> searchByActor(String searchName){
-=======
     public Actor searchByActor(String searchName) {
->>>>>>> 0678e8be12b25e28f79ad0db10de10bce0c6fb85
 
-
-        JSONObject jsonObject = response.getBody().getObject();
-        JSONArray names = jsonObject.getJSONObject("data").getJSONArray("names");
-        JSONArray movieList = names.getJSONObject(0).getJSONArray("filmographies").getJSONObject(0).getJSONArray("filmography");
+        JSONArray names = response.getBody().getObject().getJSONObject("data").getJSONArray("names");
+        JSONArray movieData = response.getBody().getObject().getJSONObject("data").getJSONArray("names").getJSONObject(0).getJSONArray("filmographies").getJSONObject(0).getJSONArray("filmography");
         String photo = names.getJSONObject(0).getString("urlPhoto");
         String name = names.getJSONObject(0).getString("name");
-
-
+        String birthplace = names.getJSONObject(0).getString("placeOfBirth");
+        String bio = names.getJSONObject(0).getString("bio");
+        String dob = names.getJSONObject(0).getString("dateOfBirth");
 
         ArrayList<Movie> movieArrayList = new ArrayList<>();
 
-
-        for (int i = 0; i < movieList.length(); i++) { //iterate thru all of the actor's movies
-
-            String title = movieList.getJSONObject(i).getString("title");
-            String imdbid = movieList.getJSONObject(i).getString("imdbid");
-
-            // System.out.format("%20s%20s\n", title, imdbid);
-
-        }
-
         for (int i = 0; i < 10; i++) { //iterate thru all of the actor's movies and add to list
 
-            String title = movieList.getJSONObject(i).getString("title");
-            String imdbid = movieList.getJSONObject(i).getString("imdbid");
+            String title = movieData.getJSONObject(i).getString("title");
+            String imdbid = movieData.getJSONObject(i).getString("imdbid");
             MovieParse movieParser = new MovieParse();
             HttpResponse<JsonNode> movie = movieParser.makeMovieRequest(imdbid);
             try {
@@ -102,26 +87,29 @@ public class MovieParse {
                 Movie movieObj = new Movie(title, imdbid, image, metascore, plot, rated);
                 movieArrayList.add(movieObj);
 
-
             } catch (Exception e) {
                 //e.printStackTrace();
             }
         }
         Actor actor = null;
         try {
-            actor = new Actor(name, photo, movieArrayList);
+            actor = new Actor(name, photo, movieArrayList, birthplace, bio, dob);
 
-
-            //actorDAO.save(actor);
         } catch (Exception e) {
 
         }
 
-
         return actor;
     }
 
+    public static void main(String[] args){
+        MovieParse movieParse = new MovieParse();
+        String actor = "Ezra Miller";
+        movieParse.makeActorRequest(actor);
+        Actor actorObject = movieParse.searchByActor(actor);
+        System.out.println("\n" + actorObject.getName());
+        System.out.println(actorObject.getActorPhotos());
+        System.out.println(actorObject.getMovies().get(1).getTitle());
 
-
-
+    }
 }

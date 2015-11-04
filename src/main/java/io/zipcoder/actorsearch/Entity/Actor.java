@@ -15,38 +15,34 @@ public class Actor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-
-    private String name;
-
-
-    private String age;
-
-
-
-
-    private String actorPhotos;
     @Transient
     private ArrayList<Movie> movies;
 
-
+    private String name;
+    private String actorPhotos;
+    private String birthplace;
+    private String bio;
+    private String dob;
 
 
     public Actor(){
 
     }
-    public Actor(String name, String actorPhotos, ArrayList<Movie> movies) {
+    public Actor(String name, String actorPhotos, ArrayList<Movie> movies, String birthplace, String bio, String dob) {
         this.name = name;
         this.actorPhotos = actorPhotos;
         this.movies = movies;
+        this.birthplace = birthplace;
+        this.bio = bio;
+        this.dob = dob;
     }
 
-
-    public int getId() {
-        return id;
+    public ArrayList<Movie> getMovies() {
+        return movies;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setMovies(ArrayList<Movie> movies) {
+        this.movies = movies;
     }
 
     public String getName() {
@@ -57,14 +53,6 @@ public class Actor {
         this.name = name;
     }
 
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
-
     public String getActorPhotos() {
         return actorPhotos;
     }
@@ -73,11 +61,27 @@ public class Actor {
         this.actorPhotos = actorPhotos;
     }
 
-    public ArrayList<Movie> getMovies() {
-        return movies;
+    public String getBirthplace() {
+        return birthplace;
     }
 
-    public void setMovies(ArrayList<Movie> movies) {
-        this.movies = movies;
+    public void setBirthplace(String birthplace) {
+        this.birthplace = birthplace;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 }
