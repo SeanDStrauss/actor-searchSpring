@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class MovieParse {
 
     private HttpResponse<JsonNode> response;
+    private Movie movieObj;
     @Autowired
     private ActorDAO actorDAO;
     @Autowired
@@ -99,7 +100,8 @@ public class MovieParse {
                 String rated = movieinfo.getJSONObject(0).getString("rated");
                 String year = movieinfo.getJSONObject(0).getString("year");
 
-                Movie movieObj = new Movie(title, imdbid, image, metascore, plot, rated, year);
+                 movieObj = new Movie(title, imdbid, image, metascore, plot, rated, year);
+                passMovie();
                 movieArrayList.add(movieObj);
 
                 movieDAO.save(movieObj);
@@ -117,6 +119,10 @@ public class MovieParse {
         }
 
         return actor;
+    }
+
+    public Movie passMovie() {
+        return movieObj;
     }
 
 

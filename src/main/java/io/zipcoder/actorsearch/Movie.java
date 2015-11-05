@@ -14,6 +14,9 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
+
+
+
     @NotNull
     private String title;
 
@@ -115,4 +118,14 @@ public class Movie {
     public void setYear(String year) {
         this.year = year;
     }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+
 }

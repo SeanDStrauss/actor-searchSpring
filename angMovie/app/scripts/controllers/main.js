@@ -13,11 +13,22 @@ angular.module('angMovieApp')
 
   	$scope.searchActor =function (){
   		movieData.searchByActor($scope.name);
-  		console.log(movieData);
   	}
 
+  	$scope.$watch(function(){return movieData.getMovieByActor();}, function(newVal, oldVal) {
+		if (typeof newVal !== 'undefined') {
+        $scope.movieInfo = newVal.data;
+        var movieArray = $scope.movieInfo;
+        //console.log(movieArray);
+        
+
+        for(var key in movieArray) {
+        	$scope.movieList += movieArray[key]
+        }
+       
+       }})
 
 
-    
+
 
   });

@@ -11,12 +11,17 @@ import java.util.ArrayList;
 @Entity
 @Table(name = "actor")
 public class Actor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     private int id;
+
 
     @Transient
     private ArrayList<Movie> movies;
+
+
 
     private String name;
 
@@ -24,6 +29,9 @@ public class Actor {
     private String birthplace;
     private String bio;
     private String dob;
+
+
+
 
     /**
      * Default constructor
@@ -50,13 +58,7 @@ public class Actor {
         this.dob = dob;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public ArrayList<Movie> getMovies() {
         return movies;
@@ -105,4 +107,12 @@ public class Actor {
     public void setDob(String dob) {
         this.dob = dob;
     }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

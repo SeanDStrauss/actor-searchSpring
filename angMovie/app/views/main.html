@@ -6,3 +6,16 @@ Search by actor
   Search
 </button>
 
+{{movieInfo.name}}
+<img src="{{movieInfo.actor_photos}}"> </img>
+<div ng-repeat="k in movieInfo.movies">
+  {{k.title}}
+  <br>
+  {{k.plot}}
+  <img src="{{k.image}}"/> 
+</div>
+
+<div>
+  {{movieLists}}
+</div>
+

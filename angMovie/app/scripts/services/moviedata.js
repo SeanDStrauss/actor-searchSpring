@@ -12,11 +12,11 @@ angular.module('angMovieApp')
     var movieData = {};
     function searchByActor(name) {
     $http({
-      method: 'POST',
+      method: 'GET',
       url: 'http://localhost:8080/actor?name=' + name
     }).then(function successCallback(response) {
       movieData = response;
-      //console.log(movieData);
+      console.log(movieData);
       //console.log(data);
     }, function errorCallback(response) {
       
