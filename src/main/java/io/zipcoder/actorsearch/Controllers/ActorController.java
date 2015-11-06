@@ -13,11 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 public class ActorController {
-
-
-
-
-@Autowired
+    @Autowired
     ActorDAO actorDAO;
 
     @Autowired
@@ -33,18 +29,17 @@ public class ActorController {
         MovieParse movieParse = null;
         Actor actor = null;
         actor = actorDAO.findOneByName(name);
-        if(actor == null){
-           return searchMoviesByActor(name);
-        } else {
-            return actor;
-        }
+            if (actor == null) {
+                return searchMoviesByActor(name);
+            } else {
+                return actor;
+            }
 
     }
 
     @RequestMapping(name = "/actor", method = RequestMethod.POST)
     public Actor searchMoviesByActor(@RequestParam String name) {
         MovieParse mp = new MovieParse();
-
         Actor actor = null;
         Movie movie = null;
         try {
@@ -53,19 +48,10 @@ public class ActorController {
             for(Movie key : actor.getMovies()) {
                 movieDAO.save(key);
             }
-            //movie = mp.passMovie();
-
-
-
-
-
             actorDAO.save(actor);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         return  actor;
 
     }
